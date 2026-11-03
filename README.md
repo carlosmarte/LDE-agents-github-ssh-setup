@@ -25,6 +25,12 @@ setting up GitHub SSH access with the GitHub CLI (`gh`).
    | 2 | Load the key into the SSH agent so the passphrase is not asked for on every push. |
    | 3 | Verify with `gh auth status` and `ssh -T git@github.com`. |
 
+## Guides for people
+
+- [docs/WINDOWS-GH-SSH-GUIDE.md](docs/WINDOWS-GH-SSH-GUIDE.md): GitHub CLI +
+  SSH on Windows, including the Git-for-Windows `ssh.exe` problem, multiple keys
+  and troubleshooting.
+
 ## Rules that apply on every platform
 
 - **Never generate, read, print, or move a private key yourself.** `gh auth login`
