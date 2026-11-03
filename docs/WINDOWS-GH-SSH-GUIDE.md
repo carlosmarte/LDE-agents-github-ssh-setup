@@ -86,6 +86,26 @@ gh auth login
 the public key to your GitHub account. A new key is saved as
 `%USERPROFILE%\.ssh\id_ed25519`.
 
+### Sign in without the questions (HTTPS, browser)
+
+To skip the questions, or if `gh` isn't on `PATH` yet because the terminal
+was opened before the install, call it by its full path with the answers given
+as flags:
+
+```powershell
+& "C:\Program Files\GitHub CLI\gh.exe" auth login --hostname github.com --git-protocol https --web
+```
+
+It prints a one-time code and opens the browser. **Check which GitHub account
+the browser is signed in to before you approve.** If it's a different account
+(for example a bot or work account), open a private window, go to
+<https://github.com/login/device>, sign in as the account you want, and enter
+the code there. Answer **Yes** to "Authenticate Git with your GitHub
+credentials?" so `git push` uses this sign-in.
+
+Confirm the account afterwards with
+`& "C:\Program Files\GitHub CLI\gh.exe" auth status`.
+
 Then let `gh` configure git for any HTTPS remotes:
 
 ```powershell
@@ -160,6 +180,23 @@ gh repo clone <owner>/<repo>
 # or
 git clone git@github.com:<owner>/<repo>.git
 ```
+
+---
+
+## Pushing a branch from any directory
+
+`git -C <path>` runs git as if you were inside `<path>`, so you don't need to
+`cd` first. For example, to push this repo's docs branch and set it to track
+`origin`:
+
+```powershell
+git -C "C:\Users\Public\github.com\carlosmarte\LDE-agents-github-ssh-setup" push -u origin docs/windows-gh-ssh-guide
+```
+
+The general form is `git -C "<repo path>" push -u origin <branch>`. If the
+push fails with `Permission ... denied to <user>`, the credential git used
+belongs to an account without write access. Check with `gh auth status` and
+`ssh -T git@github.com`.
 
 ---
 
